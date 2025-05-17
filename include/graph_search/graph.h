@@ -7,11 +7,15 @@ namespace graph_search{
   class Graph{
   public:
     bool search();
-    bool isGoalSatisfied();
-    std::vector<std::shared_ptr> gatherAdjacentNodes(std::shared_ptr extend_node);
-    void addNodes(std::vector<std::shared_ptr> nodes);
+    bool isGoalSatisfied(std::shared_ptr<Node> node);
+    std::vector<std::shared_ptr<Node> > gatherAdjacentNodes(std::shared_ptr<Node> extend_node);
+    void addNodes(std::vector<std::shared_ptr<Node> > nodes);
+    std::shared_ptr<Node> goal() {return this->goal_;}
+    int& maxExtendNum() {return this->maxExtendNum_;}
   private:
-    std::vector<std::shared_ptr> graph_;
+    std::vector<std::shared_ptr<Node> > graph_;
+    std::shared_ptr<Node> goal_;
+    int maxExtendNum_ = 1e3;
   };
 }
 

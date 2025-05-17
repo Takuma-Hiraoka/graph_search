@@ -8,9 +8,11 @@ namespace graph_search{
   class Node{
   public:
     std::weak_ptr<Node> parent() {return this->parent_;}
-    double heuristic() {return 1.0;}    
+    double heuristic() {return heuristic_;} // smaller better
+    void calcHeuristic();
   private:
     std::weak_ptr<Node> parent_;
+    double heuristic_ = 1.0;
   };
 }
 

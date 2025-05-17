@@ -18,12 +18,7 @@ include_directories(
 
 add_library(${PROJECT_NAME} SHARED src/graph_search.cpp)
 
-target_link_libraries(${PROJECT_NAME}  PUBLIC
-  ${catkin_LIBRARIES}
-  )
-
-target_include_directories(${PROJECT_NAME}  PUBLIC
-  include
+target_link_libraries(${PROJECT_NAME}
   ${catkin_LIBRARIES}
   )
 
@@ -36,5 +31,4 @@ install(TARGETS ${PROJECT_NAME}
 install(DIRECTORY include/${PROJECT_NAME}/
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
   FILES_MATCHING PATTERN "*.h"
-  PATTERN ".svn" EXCLUDE
 )
