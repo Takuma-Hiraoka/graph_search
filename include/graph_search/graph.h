@@ -4,14 +4,16 @@
 #include <graph_search/node.h>
 
 namespace graph_search{
-  class Graph{
+  class Planner{
   public:
     bool search();
-    bool isGoalSatisfied(std::shared_ptr<Node> node);
-    std::vector<std::shared_ptr<Node> > gatherAdjacentNodes(std::shared_ptr<Node> extend_node);
-    void addNodes(std::vector<std::shared_ptr<Node> > nodes);
+    void addNodes2Graph(std::vector<std::shared_ptr<Node> > nodes);
     std::shared_ptr<Node> goal() {return this->goal_;}
     int& maxExtendNum() {return this->maxExtendNum_;}
+
+    virtual bool isGoalSatisfied(std::shared_ptr<Node> node);
+    virtual void calcHeuristic(std::shared_ptr<Node> node);
+    virtual std::vector<std::shared_ptr<Node> > gatherAdjacentNodes(std::shared_ptr<Node> extend_node);
   private:
     std::vector<std::shared_ptr<Node> > graph_;
     std::shared_ptr<Node> goal_;
