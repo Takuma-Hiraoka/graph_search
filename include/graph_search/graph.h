@@ -8,6 +8,10 @@ namespace graph_search{
   public:
     bool search();
     void addNodes2Graph(std::vector<std::shared_ptr<Node> > nodes);
+    const int& debugLevel() const {return this->debugLevel_;}
+    int& debugLevel() {return this->debugLevel_;}
+    const std::vector<std::shared_ptr<Node> >& graph() const {return this->graph_;}
+    std::vector<std::shared_ptr<Node> >& graph() {return this->graph_;}
     std::shared_ptr<Node> goal() {return this->goal_;}
     int& maxExtendNum() {return this->maxExtendNum_;}
 
@@ -15,6 +19,7 @@ namespace graph_search{
     virtual void calcHeuristic(std::shared_ptr<Node> node) = 0;
     virtual std::vector<std::shared_ptr<Node> > gatherAdjacentNodes(std::shared_ptr<Node> extend_node) = 0;
   private:
+    int debugLevel_ = 0;
     std::vector<std::shared_ptr<Node> > graph_;
     std::shared_ptr<Node> goal_;
     int maxExtendNum_ = 1e3;

@@ -8,25 +8,34 @@ namespace graph_search{
       std::cerr << "[graph_search] error. graph is empty!" << std::endl;
       return false;
     }
+
+    for (int i=0; i<this->graph_.size(); i++) this->calcHeuristic(this->graph_[i]);
+    std::sort(graph_.begin(), graph_.end(),
+	      [](const std::shared_ptr<Node>& a, const std::shared_ptr<Node>& b) {
+		return a->heuristic() < b->heuristic();
+	      });
+
     int iter = 0;
     while (iter < this->maxExtendNum_) {
+      if (this->debugLevel_ >= 1) std::cerr << "[graph_search] search iter : " << iter << " graph size : " << this->graph_.size() << std::endl;
+
       iter++;
       std::shared_ptr<Node> extend_node = this->graph_.front();
-      std::vector<std::shared_ptr<Node> > adjacent_nodes = Planner::gatherAdjacentNodes(extend_node);
+      std::vector<std::shared_ptr<Node> > adjacent_nodes = this->gatherAdjacentNodes(extend_node);
       std::shared_ptr<Node> goal_node = nullptr;
       for (int i=0; i<adjacent_nodes.size(); i++) {
-	if(Planner::isGoalSatisfied(adjacent_nodes[i])){
+	if(this->isGoalSatisfied(adjacent_nodes[i])){
 	  goal_node = adjacent_nodes[i];
 	  break;
 	}
-	Planner::calcHeuristic(adjacent_nodes[i]);
+        this->calcHeuristic(adjacent_nodes[i]);
       }
 
       if (goal_node) {
 	this->goal_ = goal_node;
 	break;
       }
-      Planner::addNodes2Graph(adjacent_nodes);
+      this->addNodes2Graph(adjacent_nodes);
     }
 
     if (this->goal_) {
