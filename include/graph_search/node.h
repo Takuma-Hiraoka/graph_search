@@ -11,9 +11,12 @@ namespace graph_search{
     std::weak_ptr<Node>& parent() {return this->parent_;}
     const double& heuristic() const {return heuristic_;}
     double& heuristic() {return heuristic_;}
+    const bool& extended() const {return extended_;}
+    bool& extended() {return extended_;}
   private:
     std::weak_ptr<Node> parent_;
     double heuristic_ = 1.0; // smaller better
+    bool extended_ = false;
   };
 }
 
