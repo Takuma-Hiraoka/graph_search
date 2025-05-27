@@ -18,7 +18,7 @@ namespace graph_search{
 		return a->heuristic() < b->heuristic();
 	      });
 
-    std::shared_ptr<unsigned int> itr = std::make_shared<unsigned int>(0);
+    std::shared_ptr<unsigned long> itr = std::make_shared<unsigned long>(0);
     std::vector<std::thread *> th(this->threads_);
     std::shared_ptr<std::mutex> threadLock = std::make_shared<std::mutex>();
     for (unsigned int i=0; i < this->threads_; i++) {
@@ -38,7 +38,7 @@ namespace graph_search{
     }
   }
   
-  void Planner::extendThread(std::shared_ptr<unsigned int> itr,
+  void Planner::extendThread(std::shared_ptr<unsigned long> itr,
 			     std::shared_ptr<std::mutex> mutex,
 			     const std::vector<std::shared_ptr<Node> >& graph,
 			     std::shared_ptr<TransitionCheckParam> checkParam) {
@@ -46,6 +46,7 @@ namespace graph_search{
       mutex->lock();
       if (((*itr) >= this->maxExtendNum_) || this->goal_) {mutex->unlock(); break;}
       else {
+	if (this->debugLevel_ >= 1) std::cerr << "iter " << (*itr) << " graph size " << graph.size() << std::endl;
 	(*itr)++;
 	std::shared_ptr<Node> extend_node = nullptr;
 	for (int i=0; i<graph.size();i++) {

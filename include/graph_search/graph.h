@@ -12,7 +12,7 @@ namespace graph_search{
     };
     bool search();
     void addNodes2Graph(std::vector<std::shared_ptr<Node> > nodes);
-    void extendThread(std::shared_ptr<unsigned int> itr,
+    void extendThread(std::shared_ptr<unsigned long> itr,
 		      std::shared_ptr<std::mutex> mutex,
 		      const std::vector<std::shared_ptr<Node> >& graph,
 		      std::shared_ptr<TransitionCheckParam> checkParam);
@@ -21,8 +21,8 @@ namespace graph_search{
     const std::vector<std::shared_ptr<Node> >& graph() const {return this->graph_;}
     std::vector<std::shared_ptr<Node> >& graph() {return this->graph_;}
     std::shared_ptr<Node> goal() {return this->goal_;}
-    const unsigned int& maxExtendNum() const {return this->maxExtendNum_;}
-    unsigned int& maxExtendNum() {return this->maxExtendNum_;}
+    const unsigned long& maxExtendNum() const {return this->maxExtendNum_;}
+    unsigned long& maxExtendNum() {return this->maxExtendNum_;}
     const unsigned int& threads() const {return this->threads_;}
     unsigned int& threads() {return this->threads_;}
 
@@ -37,7 +37,7 @@ namespace graph_search{
     int debugLevel_ = 0;
     std::vector<std::shared_ptr<Node> > graph_;
     std::shared_ptr<Node> goal_ = nullptr;
-    unsigned int maxExtendNum_ = 1e3;
+    unsigned long maxExtendNum_ = 1e6;
     unsigned int threads_ = 1;
   };
 }
