@@ -57,18 +57,20 @@ namespace graph_search{
 	  }
 	}
 	if (!extend_node) { mutex->unlock(); continue;}
-        this->prepareCheckTransition(checkParam, extend_node);
+        this->preCheckTransition(checkParam, extend_node);
 	mutex->unlock();
 
-	if (!(this->checkTransition(checkParam, extend_node))) continue;
-	if (this->isGoalSatisfied(extend_node)) {
+	if (!(this->checkTransition(checkParam))) continue;
+	if (this->isGoalSatisfied(checkParam)) {
 	  mutex->lock();
+	  this->postCheckTransition(checkParam, extend_node);
 	  this->goal_ = extend_node;
 	  mutex->unlock();
 	  break;
 	}
 	// 遷移可能かつgoalでない
 	mutex->lock();
+	this->postCheckTransition(checkParam, extend_node);
 	std::vector<std::shared_ptr<Node> > adjacent_nodes = this->gatherAdjacentNodes(extend_node);
 	mutex->unlock();
 	for (int i=0; i<adjacent_nodes.size(); i++) this->calcHeuristic(adjacent_nodes[i]);
