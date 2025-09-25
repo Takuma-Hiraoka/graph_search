@@ -71,7 +71,7 @@ namespace graph_search{
 	// 遷移可能かつgoalでない
 	mutex->lock();
 	this->postCheckTransition(checkParam, extend_node);
-	std::vector<std::shared_ptr<Node> > adjacent_nodes = this->gatherAdjacentNodes(extend_node);
+	std::vector<std::shared_ptr<Node> > adjacent_nodes = this->gatherAdjacentNodes(checkParam, extend_node);
 	mutex->unlock();
 	for (int i=0; i<adjacent_nodes.size(); i++) this->calcHeuristic(adjacent_nodes[i]);
 	mutex->lock();
