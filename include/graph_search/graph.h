@@ -20,6 +20,7 @@ namespace graph_search{
     int& debugLevel() {return this->debugLevel_;}
     const std::vector<std::shared_ptr<Node> >& graph() const {return this->graph_;}
     std::vector<std::shared_ptr<Node> >& graph() {return this->graph_;}
+    void setGoal(std::shared_ptr<Node> goal) {this->goal_ = goal;}
     std::shared_ptr<Node> goal() {return this->goal_;}
     const unsigned long& maxExtendNum() const {return this->maxExtendNum_;}
     unsigned long& maxExtendNum() {return this->maxExtendNum_;}
