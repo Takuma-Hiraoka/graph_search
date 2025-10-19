@@ -13,9 +13,9 @@ namespace graph_search{
     bool search();
     void addNodes2Graph(std::vector<std::shared_ptr<Node> > nodes);
     void extendThread(std::shared_ptr<unsigned long> itr,
-		      std::shared_ptr<std::mutex> mutex,
-		      const std::vector<std::shared_ptr<Node> >& graph,
-		      std::shared_ptr<TransitionCheckParam> checkParam);
+                      std::shared_ptr<std::mutex> mutex,
+                      const std::vector<std::shared_ptr<Node> >& graph,
+                      std::shared_ptr<TransitionCheckParam> checkParam);
     const int& debugLevel() const {return this->debugLevel_;}
     int& debugLevel() {return this->debugLevel_;}
     const std::vector<std::shared_ptr<Node> >& graph() const {return this->graph_;}
