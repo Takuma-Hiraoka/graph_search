@@ -33,7 +33,7 @@ namespace graph_search{
     virtual bool checkTransition(std::shared_ptr<TransitionCheckParam> checkParam) = 0;
     virtual bool isGoalSatisfied(std::shared_ptr<TransitionCheckParam> checkParam) = 0;
     virtual std::vector<std::shared_ptr<Node> > gatherAdjacentNodes(std::shared_ptr<TransitionCheckParam> checkParam, std::shared_ptr<Node> extend_node) = 0;
-    virtual void calcHeuristic(std::shared_ptr<Node> node) = 0;
+    virtual void calcHeuristic(std::shared_ptr<TransitionCheckParam> checkParam, std::shared_ptr<Node> node) = 0;
 
   private:
     int debugLevel_ = 0;

@@ -12,7 +12,7 @@ namespace graph_search{
     std::vector<std::shared_ptr<TransitionCheckParam> > checkParams;
     for (unsigned int i=0; i < this->threads_; i++) {checkParams.push_back(this->generateCheckParam());}
 
-    for (int i=0; i<this->graph_.size(); i++) this->calcHeuristic(this->graph_[i]);
+    for (int i=0; i<this->graph_.size(); i++) this->calcHeuristic(checkParams[0], this->graph_[i]);
     std::sort(graph_.begin(), graph_.end(),
               [](const std::shared_ptr<Node>& a, const std::shared_ptr<Node>& b) {
                 return a->heuristic() < b->heuristic();
@@ -73,7 +73,7 @@ namespace graph_search{
         this->postCheckTransition(checkParam, extend_node);
         std::vector<std::shared_ptr<Node> > adjacent_nodes = this->gatherAdjacentNodes(checkParam, extend_node);
         mutex->unlock();
-        for (int i=0; i<adjacent_nodes.size(); i++) this->calcHeuristic(adjacent_nodes[i]);
+        for (int i=0; i<adjacent_nodes.size(); i++) this->calcHeuristic(checkParam, adjacent_nodes[i]);
         mutex->lock();
         this->addNodes2Graph(adjacent_nodes);
         mutex->unlock();
