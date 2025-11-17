@@ -83,9 +83,9 @@ namespace graph_search{
 
   void Planner::addNodes2Graph(std::vector<std::shared_ptr<Node> > nodes) {
     this->graph_.insert(graph_.end(), nodes.begin(), nodes.end());
-    std::sort(graph_.begin(), graph_.end(),
-              [](const std::shared_ptr<Node>& a, const std::shared_ptr<Node>& b) {
-                return a->heuristic() < b->heuristic();
-              });
+    std::stable_sort(graph_.begin(), graph_.end(),
+                     [](const std::shared_ptr<Node>& a, const std::shared_ptr<Node>& b) {
+                       return a->heuristic() < b->heuristic();
+                     });
   }
 }
