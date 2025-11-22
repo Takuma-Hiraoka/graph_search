@@ -47,10 +47,10 @@ namespace graph_search{
       if (((*itr) >= this->maxExtendNum_) || this->goal_) {mutex->unlock(); break;}
       else {
         if (this->debugLevel_ >= 1) std::cerr << "iter " << (*itr) << " graph size " << graph.size() << std::endl;
-        (*itr)++;
         std::shared_ptr<Node> extend_node = nullptr;
         for (int i=0; i<graph.size();i++) {
           if (!graph[i]->extended()) {
+            (*itr)++;
             graph[i]->extended() = true;
             extend_node = graph[i];
             break;
