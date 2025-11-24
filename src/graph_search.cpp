@@ -69,19 +69,18 @@ namespace graph_search{
           break;
         }
         // 遷移可能かつgoalでない
-        mutex->lock();
-        this->postCheckTransition(checkParam, extend_node);
-        std::vector<std::shared_ptr<Node> > adjacent_nodes = this->gatherAdjacentNodes(checkParam, extend_node);
-        mutex->unlock();
+        std::vector<std::shared_ptr<Node> > adjacent_nodes = this->gatherAdjacentNodes(checkParam);
         for (int i=0; i<adjacent_nodes.size(); i++) this->calcHeuristic(checkParam, adjacent_nodes[i]);
         mutex->lock();
+        this->postCheckTransition(checkParam, extend_node);
+        for (int i=0; i<adjacent_nodes.size(); i++) adjacent_nodes[i]->parent() = extend_node;
         this->addNodes2Graph(adjacent_nodes);
         mutex->unlock();
       }
     }
   }
 
-  void Planner::addNodes2Graph(std::vector<std::shared_ptr<Node> > nodes) {
+  void Planner::addNodes2Graph(std::vector<std::shared_ptr<Node> >& nodes) {
     this->graph_.insert(graph_.end(), nodes.begin(), nodes.end());
     std::stable_sort(graph_.begin(), graph_.end(),
                      [](const std::shared_ptr<Node>& a, const std::shared_ptr<Node>& b) {

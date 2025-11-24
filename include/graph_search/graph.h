@@ -11,7 +11,7 @@ namespace graph_search{
     class TransitionCheckParam {
     };
     bool search();
-    void addNodes2Graph(std::vector<std::shared_ptr<Node> > nodes);
+    virtual void addNodes2Graph(std::vector<std::shared_ptr<Node> >& nodes);
     void extendThread(std::shared_ptr<unsigned long> itr,
                       std::shared_ptr<std::mutex> mutex,
                       const std::vector<std::shared_ptr<Node> >& graph,
@@ -32,7 +32,7 @@ namespace graph_search{
     virtual void postCheckTransition(std::shared_ptr<TransitionCheckParam> checkParam, std::shared_ptr<Node> extend_node) = 0; // checkParamの情報をextend_nodeに取り込む
     virtual bool checkTransition(std::shared_ptr<TransitionCheckParam> checkParam) = 0;
     virtual bool isGoalSatisfied(std::shared_ptr<TransitionCheckParam> checkParam) = 0;
-    virtual std::vector<std::shared_ptr<Node> > gatherAdjacentNodes(std::shared_ptr<TransitionCheckParam> checkParam, std::shared_ptr<Node> extend_node) = 0;
+    virtual std::vector<std::shared_ptr<Node> > gatherAdjacentNodes(std::shared_ptr<TransitionCheckParam> checkParam) = 0;
     virtual void calcHeuristic(std::shared_ptr<TransitionCheckParam> checkParam, std::shared_ptr<Node> node) = 0;
 
   private:
